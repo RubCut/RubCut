@@ -1,0 +1,244 @@
+{
+ "key": "3affa998",
+ "stars": 2,
+ "contributions": 222,
+ "repos": 9,
+ "followers": 0,
+ "languages": [
+  [
+   "Java",
+   2778878
+  ],
+  [
+   "Kotlin",
+   1431603
+  ],
+  [
+   "C++",
+   1235143
+  ],
+  [
+   "Python",
+   1036047
+  ],
+  [
+   "HTML",
+   24423
+  ],
+  [
+   "CMake",
+   21078
+  ],
+  [
+   "Ruby",
+   1279
+  ]
+ ],
+ "days": [
+  [
+   {
+    "c": 5,
+    "day": 4,
+    "today": false
+   },
+   {
+    "c": 19,
+    "day": 5,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 6,
+    "today": false
+   },
+   {
+    "c": 1,
+    "day": 7,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 8,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 9,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 10,
+    "today": false
+   }
+  ],
+  [
+   {
+    "c": 0,
+    "day": 11,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 12,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 13,
+    "today": false
+   },
+   {
+    "c": 15,
+    "day": 14,
+    "today": false
+   },
+   {
+    "c": 3,
+    "day": 15,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 16,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 17,
+    "today": false
+   }
+  ],
+  [
+   {
+    "c": 0,
+    "day": 18,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 19,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 20,
+    "today": false
+   },
+   {
+    "c": 1,
+    "day": 21,
+    "today": true
+   },
+   null,
+   null,
+   null
+  ]
+ ],
+ "streak": {
+  "current": 1,
+  "longest": 5
+ },
+ "pins": [],
+ "all": [
+  {
+   "name": "ZapretForAndroid",
+   "url": "https://github.com/RubCut/ZapretForAndroid",
+   "text": "Zapret! Ported to Android!",
+   "fork": false,
+   "stars": 1,
+   "language": "Kotlin",
+   "topics": []
+  },
+  {
+   "name": "ZeroAPI",
+   "url": "https://github.com/RubCut/ZeroAPI",
+   "text": "ZeroAPI Free: Turn ChatGPT, DeepSeek, Gemini, Kimi, GLM, Qwen, Arena or Meta AI into a OpenAI Based API!. Browser extension + local server. Run any AI For free!",
+   "fork": true,
+   "stars": 1,
+   "language": "JavaScript",
+   "topics": [
+    "ai",
+    "ai-agent",
+    "ai-agents",
+    "ai-tools",
+    "api",
+    "api-integration"
+   ]
+  },
+  {
+   "name": "AI-news-Smartspacer-plugin",
+   "url": "https://github.com/RubCut/AI-news-Smartspacer-plugin",
+   "text": "Adds AI news target that will fetch news about any theme you want trough AI API's like Gemini, OpenAI and more.",
+   "fork": false,
+   "stars": 1,
+   "language": "Kotlin",
+   "topics": []
+  },
+  {
+   "name": "RubCut",
+   "url": "https://github.com/RubCut/RubCut",
+   "text": "Expressive GitHub profile",
+   "fork": false,
+   "stars": 0,
+   "language": null,
+   "topics": []
+  },
+  {
+   "name": "RubPatches",
+   "url": "https://github.com/RubCut/RubPatches",
+   "text": "RubPatches is a repo for MargyT based TikTok Addon that adds many customization features.",
+   "fork": false,
+   "stars": 0,
+   "language": "Java",
+   "topics": []
+  },
+  {
+   "name": "homebrew-paint-qt",
+   "url": "https://github.com/RubCut/homebrew-paint-qt",
+   "text": "Homebrew cask for Paint.QT, a raster image editor on Qt 6",
+   "fork": false,
+   "stars": 0,
+   "language": "Ruby",
+   "topics": []
+  },
+  {
+   "name": "Paint.QT",
+   "url": "https://github.com/RubCut/Paint.QT",
+   "text": "A raster image editor for Linux desktops, in C++20 on Qt 6. Reads and writes .pdn, the tool set and palette layout of Paint.NET.",
+   "fork": false,
+   "stars": 0,
+   "language": "C++",
+   "topics": [
+    "qt6",
+    "image-editor",
+    "raster-graphics",
+    "graphics",
+    "linux",
+    "paint",
+    "linux-desktop",
+    "appimage",
+    "flatpak",
+    "cpp20"
+   ]
+  },
+  {
+   "name": "Couchy-Apps-Menu-Addon",
+   "url": "https://github.com/RubCut/Couchy-Apps-Menu-Addon",
+   "text": "later",
+   "fork": false,
+   "stars": 0,
+   "language": "Java",
+   "topics": []
+  },
+  {
+   "name": "2GIS-Smartspacer-Plugin",
+   "url": "https://github.com/RubCut/2GIS-Smartspacer-Plugin",
+   "text": "2GIS map Smartspacer plugin that allows you to see time in minutes to access any address you choose. Needs 2GIS api key.",
+   "fork": false,
+   "stars": 0,
+   "language": "Kotlin",
+   "topics": []
+  }
+ ]
+}
