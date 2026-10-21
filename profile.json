@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "login": "RubCut",
+  "seed": "#B36CFF",
+  "seedFromAvatar": false,
+  "scheme": "tonalSpot",
+  "motion": true,
+  "iconFill": true,
+  "order": [
+    "hero",
+    "socials",
+    "about",
+    "stack",
+    "projects",
+    "stats",
+    "wave",
+    "streak",
+    "buttons"
+  ],
+  "hidden": [
+    "streak"
+  ],
+  "hero": {
+    "greeting": "Hello! I am",
+    "name": "",
+    "subtitle": "And I built some shit on github so it DOES have many bugs and I know about it.",
+    "typing": true,
+    "avatarShape": "pill",
+    "chips": [
+      {
+        "icon": "location_on",
+        "label": "Earth"
+      },
+      {
+        "icon": "code",
+        "label": "C++, Python, JavaScript"
+      },
+      {
+        "icon": "translate",
+        "label": "English, Russian"
+      }
+    ]
+  },
+  "about": {
+    "title": "About me",
+    "items": [
+      {
+        "icon": "person",
+        "label": "Developer and designer"
+      },
+      {
+        "icon": "code",
+        "label": "Mostly frontend"
+      },
+      {
+        "icon": "palette",
+        "label": "Into Material Design and QT on PC!"
+      },
+      {
+        "icon": "music_note",
+        "label": "Love music!"
+      }
+    ]
+  },
+  "stack": {
+    "title": "Tech stack",
+    "groups": [
+      {
+        "title": "Main",
+        "items": [
+          {
+            "icon": "brand:typescript",
+            "label": "TypeScript"
+          },
+          {
+            "icon": "brand:react",
+            "label": "React"
+          },
+          {
+            "icon": "brand:python",
+            "label": "Python"
+          }
+        ]
+      },
+      {
+        "title": "Tools",
+        "items": [
+          {
+            "icon": "brand:git",
+            "label": "Git"
+          },
+          {
+            "icon": "brand:figma",
+            "label": "Figma"
+          },
+          {
+            "icon": "brand:githubactions",
+            "label": "GitHub Actions"
+          }
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "source": "manual",
+    "repos": [
+      "Paint.QT",
+      "2GIS-Smartspacer-Plugin",
+      "AI-news-Smartspacer-plugin",
+      "RubPatches"
+    ],
+    "overrides": {
+      "2GIS-Smartspacer-Plugin": {
+        "icon": "public"
+      },
+      "AI-news-Smartspacer-plugin": {
+        "icon": "mindfulness"
+      },
+      "RubPatches": {
+        "icon": "brand:tiktok"
+      }
+    },
+    "empty": "No description yet.",
+    "fork": "Forked"
+  },
+  "stats": {
+    "title": "GitHub activity",
+    "stars": "Stars earned",
+    "contributions": "Contributions this year",
+    "repos": "Shit I created",
+    "followers": "Followers",
+    "calendar": "Last 21 days",
+    "weekdays": "SMTWTFS",
+    "languages": "Languages across my repositories",
+    "showLanguages": true
+  },
+  "streak": {
+    "title": "Streak",
+    "current": "Current streak",
+    "longest": "Longest this year",
+    "days": "days"
+  },
+  "socials": {
+    "items": [
+      {
+        "icon": "brand:telegram",
+        "url": "https://t.me/RubCut"
+      },
+      {
+        "icon": "brand:tiktok",
+        "url": "https://www.tiktok.com/@burmaldakotost?"
+      }
+    ],
+    "variant": "chip",
+    "fill": "brand",
+    "card": true
+  },
+  "buttons": {
+    "items": []
+  }
+}
