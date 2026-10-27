@@ -1,5 +1,5 @@
 {
- "key": "dad2894e",
+ "key": "deabeb0f",
  "stars": 2,
  "contributions": 225,
  "repos": 10,
@@ -118,9 +118,13 @@
    {
     "c": 0,
     "day": 26,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 27,
     "today": true
    },
-   null,
    null,
    null,
    null,
