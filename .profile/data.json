@@ -1,5 +1,5 @@
 {
- "key": "962eb909",
+ "key": "9808c28a",
  "stars": 2,
  "contributions": 227,
  "repos": 11,
@@ -154,7 +154,7 @@
    "url": "https://github.com/RubCut/ZeroAPI",
    "text": "ZeroAPI Free: Turn ChatGPT, DeepSeek, Gemini, Kimi, GLM, Qwen, Arena or Meta AI into a OpenAI Based API!. Browser extension + local server. Run any AI For free!",
    "fork": true,
-   "stars": 2,
+   "stars": 3,
    "language": "JavaScript",
    "topics": [
     "ai",
