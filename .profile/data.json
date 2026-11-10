@@ -1,7 +1,7 @@
 {
- "key": "64e25266",
+ "key": "68ed3b6b",
  "stars": 3,
- "contributions": 324,
+ "contributions": 328,
  "repos": 13,
  "followers": 0,
  "languages": [
@@ -19,15 +19,15 @@
   ],
   [
    "Python",
-   1140915
+   1197068
+  ],
+  [
+   "C",
+   200745
   ],
   [
    "HTML",
    162663
-  ],
-  [
-   "C",
-   45466
   ],
   [
    "JavaScript",
@@ -116,11 +116,15 @@
     "today": false
    },
    {
-    "c": 0,
+    "c": 4,
     "day": 9,
+    "today": false
+   },
+   {
+    "c": 0,
+    "day": 10,
     "today": true
    },
-   null,
    null,
    null,
    null,
@@ -128,7 +132,7 @@
   ]
  ],
  "streak": {
-  "current": 4,
+  "current": 5,
   "longest": 5
  },
  "pins": [],
@@ -173,7 +177,7 @@
    "text": "Замена com.yandex.io.sdk с расширенными возможностями кастомизации и оптимизации!",
    "fork": false,
    "stars": 0,
-   "language": null,
+   "language": "C",
    "topics": []
   },
   {
