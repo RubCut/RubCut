@@ -1,6 +1,6 @@
 {
- "key": "31fc99d0",
- "stars": 3,
+ "key": "e414bc52",
+ "stars": 4,
  "contributions": 331,
  "repos": 13,
  "followers": 0,
@@ -167,6 +167,15 @@
    "topics": []
   },
   {
+   "name": "GeminiStation",
+   "url": "https://github.com/RubCut/GeminiStation",
+   "text": "",
+   "fork": false,
+   "stars": 1,
+   "language": "Java",
+   "topics": []
+  },
+  {
    "name": "AI-news-Smartspacer-plugin",
    "url": "https://github.com/RubCut/AI-news-Smartspacer-plugin",
    "text": "Adds AI news target that will fetch news about any theme you want trough AI API's like Gemini, OpenAI and more.",
@@ -191,15 +200,6 @@
    "fork": false,
    "stars": 0,
    "language": null,
-   "topics": []
-  },
-  {
-   "name": "GeminiStation",
-   "url": "https://github.com/RubCut/GeminiStation",
-   "text": "",
-   "fork": false,
-   "stars": 0,
-   "language": "Java",
    "topics": []
   },
   {
