@@ -1,33 +1,33 @@
 {
- "key": "c8954256",
- "stars": 5,
- "contributions": 331,
- "repos": 13,
+ "key": "7db7e6db",
+ "stars": 2,
+ "contributions": 198,
+ "repos": 9,
  "followers": 0,
  "languages": [
   [
    "Java",
-   3440011
-  ],
-  [
-   "Kotlin",
-   1431603
-  ],
-  [
-   "C++",
-   1323212
-  ],
-  [
-   "Python",
-   1202614
+   689014
   ],
   [
    "C",
-   204752
+   204552
+  ],
+  [
+   "Python",
+   172145
+  ],
+  [
+   "Kotlin",
+   169402
   ],
   [
    "HTML",
-   162663
+   138240
+  ],
+  [
+   "C++",
+   88069
   ],
   [
    "JavaScript",
@@ -62,7 +62,7 @@
     "today": false
    },
    {
-    "c": 10,
+    "c": 9,
     "day": 6,
     "today": false
    },
@@ -121,7 +121,7 @@
     "today": false
    },
    {
-    "c": 0,
+    "c": 2,
     "day": 17,
     "today": true
    },
@@ -132,7 +132,7 @@
   ]
  ],
  "streak": {
-  "current": 0,
+  "current": 1,
   "longest": 6
  },
  "pins": [],
@@ -142,7 +142,7 @@
    "url": "https://github.com/RubCut/ZeroAPI",
    "text": "ZeroAPI Free: Turn ChatGPT, DeepSeek, Gemini, Kimi, GLM, Qwen, Arena or Meta AI into a OpenAI Based API!. Browser extension + local server. Run any AI For free!",
    "fork": true,
-   "stars": 5,
+   "stars": 6,
    "language": "JavaScript",
    "topics": [
     "ai",
@@ -152,15 +152,6 @@
     "api",
     "api-integration"
    ]
-  },
-  {
-   "name": "ZapretForAndroid",
-   "url": "https://github.com/RubCut/ZapretForAndroid",
-   "text": "Zapret! Ported to Android!",
-   "fork": false,
-   "stars": 3,
-   "language": "Kotlin",
-   "topics": []
   },
   {
    "name": "GeminiStation",
@@ -221,44 +212,6 @@
    "stars": 0,
    "language": null,
    "topics": []
-  },
-  {
-   "name": "RubPatches",
-   "url": "https://github.com/RubCut/RubPatches",
-   "text": "RubPatches is a repo for MargyT based TikTok Addon that adds many customization features.",
-   "fork": false,
-   "stars": 0,
-   "language": "Java",
-   "topics": []
-  },
-  {
-   "name": "homebrew-paint-qt",
-   "url": "https://github.com/RubCut/homebrew-paint-qt",
-   "text": "Homebrew cask for Paint.QT, a raster image editor on Qt 6",
-   "fork": false,
-   "stars": 0,
-   "language": "Ruby",
-   "topics": []
-  },
-  {
-   "name": "Paint.QT",
-   "url": "https://github.com/RubCut/Paint.QT",
-   "text": "A raster image editor for Linux desktops, in C++20 on Qt 6. Reads and writes .pdn, the tool set and palette layout of Paint.NET.",
-   "fork": false,
-   "stars": 0,
-   "language": "C++",
-   "topics": [
-    "qt6",
-    "image-editor",
-    "raster-graphics",
-    "graphics",
-    "linux",
-    "paint",
-    "linux-desktop",
-    "appimage",
-    "flatpak",
-    "cpp20"
-   ]
   },
   {
    "name": "Couchy-Apps-Menu-Addon",
