@@ -1,5 +1,7 @@
 <div align="center">
 
+<a href="https://rubcut.github.io/RubCut/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/portfolio-banner-dark.svg"><img src="assets/portfolio-banner-light.svg" width="100%" alt="Open the interactive version of this profile at rubcut.github.io/RubCut"></picture></a>
+
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg"><img src="assets/hero-light.svg" width="100%" alt="Hello! I am RubCut"></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/social-l-dark.svg"><img src="assets/social-l-light.svg" width="33.194%" alt=""></picture><a href="https://t.me/RubCut"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/social-1-dark.svg"><img src="assets/social-1-light.svg" width="18.122%" alt="telegram"></picture></a><a href="https://www.tiktok.com/@burmaldakotost?"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/social-2-dark.svg"><img src="assets/social-2-light.svg" width="15.488%" alt="tiktok"></picture></a><picture><source media="(prefers-color-scheme: dark)" srcset="assets/social-r-dark.svg"><img src="assets/social-r-light.svg" width="33.194%" alt=""></picture>
