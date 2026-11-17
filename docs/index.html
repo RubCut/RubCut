@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RubCut — Android apps &amp; PC software, built with bugs and love</title>
+<meta name="description" content="Developer and designer from Earth. Mostly frontend, Qt on PC, Material Design enjoyer. C++, Python, Kotlin, TypeScript.">
+<meta name="theme-color" content="#0b0713">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0713'/%3E%3Cpath d='M10 40 22 18h10l-9 15h9l-12 16 4-13H10z' fill='%23B36CFF'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RubCut — Android apps & PC software">
+<meta property="og:description" content="Developer and designer. Mostly frontend, Qt on PC, Material Design enjoyer. Bugs included, always known about.">
+<meta property="og:image" content="./assets/og.jpg">
+<meta property="og:url" content="https://rubcut.github.io/RubCut/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0713;
+  --bg-2:#100a1d;
+  --panel:rgba(179,108,255,.055);
+  --panel-2:rgba(179,108,255,.09);
+  --line:rgba(179,108,255,.17);
+  --line-strong:rgba(179,108,255,.38);
+  --text:#f0e9ff;
+  --muted:#a99cc9;
+  --faint:#6f6392;
+  --accent:#B36CFF;
+  --accent-2:#8b3dff;
+  --accent-soft:#d7b3ff;
+  --ok:#3fb950;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --disp:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+  --r-lg:22px;
+  --r-md:16px;
+  --r-sm:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--body);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent);color:#14092b}
+
+/* ---------- backdrop ---------- */
+.backdrop{position:fixed;inset:0;z-index:-2;overflow:hidden}
+.backdrop::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(900px 560px at 78% -12%, rgba(179,108,255,.24), transparent 60%),
+    radial-gradient(700px 500px at -12% 32%, rgba(139,61,255,.16), transparent 60%),
+    radial-gradient(820px 620px at 55% 118%, rgba(179,108,255,.13), transparent 62%);
+}
+.backdrop::after{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(179,108,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(179,108,255,.05) 1px, transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 110% 80% at 50% 0%, black 35%, transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 110% 80% at 50% 0%, black 35%, transparent 78%);
+}
+.noise{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.032;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:220px 220px;
+}
+.glow-orb{position:absolute;border-radius:50%;filter:blur(110px);opacity:.35;z-index:-1}
+.orb-1{width:340px;height:340px;background:radial-gradient(circle,#7c3aed,transparent 70%);top:6%;left:-120px;animation:drift 16s ease-in-out infinite alternate}
+.orb-2{width:280px;height:280px;background:radial-gradient(circle,#b36cff,transparent 70%);top:52%;right:-110px;animation:drift 20s ease-in-out infinite alternate-reverse}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(48px,-64px) scale(1.14)}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .35s,border-color .35s,backdrop-filter .35s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(11,7,19,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom-color:var(--line)}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text)}
+.logo-badge{width:34px;height:34px;border-radius:10px;background:linear-gradient(140deg,var(--accent),var(--accent-2));display:grid;place-items:center;box-shadow:0 0 22px rgba(179,108,255,.45), inset 0 1px 0 rgba(255,255,255,.35)}
+.logo-badge svg{width:19px;height:19px;fill:#1a0b33}
+.logo b{font-family:var(--disp);font-size:1.06rem;letter-spacing:.02em}
+.logo small{display:block;font-family:var(--mono);font-size:.55rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.86rem;font-weight:500;padding:8px 14px;border-radius:99px;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--text);background:var(--panel)}
+.btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-family:var(--disp);font-weight:600;letter-spacing:.01em;border-radius:99px;cursor:pointer;border:1px solid transparent;transition:transform .22s, box-shadow .22s, background .22s, border-color .22s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(140deg,#c084ff,var(--accent) 55%,var(--accent-2));color:#1c0b38;padding:11px 22px;font-size:.88rem;box-shadow:0 6px 30px rgba(179,108,255,.4), inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 42px rgba(179,108,255,.55), inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-ghost{color:var(--text);border-color:var(--line-strong);background:rgba(179,108,255,.07);padding:10px 20px;font-size:.88rem}
+.btn-ghost:hover{border-color:var(--accent);background:rgba(179,108,255,.14);transform:translateY(-2px)}
+.nav .btn{padding:8px 18px;font-size:.82rem}
+@media(max-width:860px){.nav-links{display:none}}
+
+main{position:relative}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+section{position:relative}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:flex;align-items:center;padding:110px 0 70px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;width:100%}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:44px}.hero{min-height:auto;padding-top:104px}}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.eyebrow::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--accent))}
+h1.display{font-family:var(--disp);font-weight:700;font-size:clamp(2.6rem,6.4vw,4.3rem);line-height:1.02;letter-spacing:-.03em}
+.grad{background:linear-gradient(120deg,#f3e8ff 0%,#d7b3ff 28%,var(--accent) 55%,#7c3aed 82%,#b36cff 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradShift 7s ease-in-out infinite alternate}
+@keyframes gradShift{from{background-position:0% 50%}to{background-position:100% 50%}}
+.hero-sub{margin-top:22px;font-size:1.04rem;line-height:1.7;color:var(--muted);max-width:520px}
+.hero-sub code{font-family:var(--mono);font-size:.86em;background:var(--panel-2);border:1px solid var(--line);padding:1px 7px;border-radius:6px;color:var(--accent-soft)}
+.typing-line{margin-top:20px;font-family:var(--mono);font-size:1rem;color:var(--accent-soft);display:flex;align-items:center;gap:10px;min-height:1.6em}
+.typing-line .prompt{color:var(--faint)}
+.caret{display:inline-block;width:9px;height:1.15em;background:var(--accent);animation:blink 1.05s steps(1) infinite;vertical-align:text-bottom}
+@keyframes blink{50%{opacity:0}}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.72rem;color:var(--accent-soft);border:1px solid var(--line);background:var(--panel);padding:7px 14px;border-radius:99px}
+.chip svg{width:13px;height:13px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;align-items:center}
+.hero-note{margin-top:16px;font-family:var(--mono);font-size:.66rem;color:var(--faint);letter-spacing:.04em}
+
+/* avatar card */
+.avatar-stage{display:flex;justify-content:center;position:relative}
+.avatar-frame{position:relative;width:min(300px,72vw)}
+.avatar-ring{position:absolute;inset:-14px;border-radius:36px;background:conic-gradient(from 120deg, #b36cff, #4c1d95, #e879f9, #7c3aed, #b36cff);filter:blur(2px);opacity:.9;animation:ringSpin 9s linear infinite}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+.avatar-inner{position:absolute;inset:-9px;border-radius:33px;background:var(--bg)}
+.avatar-frame img{position:relative;display:block;width:100%;aspect-ratio:.86;object-fit:cover;border-radius:27px;background:var(--bg-2)}
+.status-pill{position:absolute;left:50%;transform:translateX(-50%);bottom:-18px;display:flex;align-items:center;gap:9px;background:rgba(16,10,29,.92);border:1px solid var(--line-strong);backdrop-filter:blur(10px);padding:9px 18px;border-radius:99px;font-family:var(--mono);font-size:.7rem;color:var(--accent-soft);white-space:nowrap;box-shadow:0 8px 28px rgba(0,0,0,.45)}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);animation:pulseDot 2s ease-in-out infinite}
+@keyframes pulseDot{50%{opacity:.35}}
+.orbit{position:absolute;border:1px dashed rgba(179,108,255,.28);border-radius:50%;pointer-events:none}
+.orbit-1{width:130%;height:130%;top:-15%;left:-15%;animation:orbitSpin 34s linear infinite}
+.orbit-2{width:165%;height:165%;top:-32.5%;left:-32.5%;animation:orbitSpin 52s linear infinite reverse}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+@media(max-width:960px){.orbit-1,.orbit-2{display:none}}
+
+/* ---------- marquee ---------- */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;overflow:hidden;background:rgba(179,108,255,.04)}
+.marquee-track{display:flex;gap:44px;width:max-content;animation:scrollX 26s linear infinite}
+.marquee span{font-family:var(--disp);font-weight:600;font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
+.marquee b{color:var(--accent);font-weight:600;margin-right:44px}
+@keyframes scrollX{to{transform:translateX(-50%)}}
+
+/* ---------- section headers ---------- */
+.section{padding:96px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:40px}
+.kicker{font-family:var(--mono);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.kicker i{width:7px;height:7px;border-radius:2px;background:var(--accent);box-shadow:0 0 12px var(--accent);display:inline-block}
+h2.title{font-family:var(--disp);font-weight:700;font-size:clamp(1.7rem,3.4vw,2.5rem);letter-spacing:-.02em}
+.sec-head p{color:var(--muted);font-size:.9rem;max-width:340px;line-height:1.6}
+@media(max-width:760px){.sec-head{flex-direction:column;align-items:flex-start}}
+
+/* ---------- stats ---------- */
+.stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+@media(max-width:960px){.stat-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.stat-cards{grid-template-columns:1fr}}
+.stat-card{border:1px solid var(--line);background:var(--panel);border-radius:var(--r-md);padding:22px 20px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s}
+.stat-card::after{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent)}
+.stat-card:hover{transform:translateY(-4px);border-color:var(--line-strong)}
+.stat-num{font-family:var(--disp);font-weight:700;font-size:2.05rem;letter-spacing:-.02em;background:linear-gradient(160deg,#fff,#c9a6ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.data-note{font-family:var(--mono);font-size:.62rem;color:var(--faint);margin-top:14px;letter-spacing:.03em}
+
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}
+@media(max-width:960px){.split{grid-template-columns:1fr}}
+.panel{border:1px solid var(--line);background:linear-gradient(165deg,var(--panel-2),var(--panel) 55%);border-radius:var(--r-lg);padding:26px;position:relative;overflow:hidden}
+.panel h3{font-family:var(--disp);font-size:.95rem;font-weight:600;letter-spacing:.02em;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.panel h3 span{font-family:var(--mono);font-size:.62rem;color:var(--faint);letter-spacing:.12em;text-transform:uppercase}
+
+.heat-grid{display:grid;grid-template-columns:auto 1fr;gap:14px;margin-top:20px}
+.heat-weekdays{display:grid;grid-template-rows:repeat(7,22px);gap:6px;font-family:var(--mono);font-size:.58rem;color:var(--faint);align-items:center}
+.heat-cells{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,22px);gap:6px}
+.heat-cell{width:100%;min-width:26px;border-radius:6px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.04);display:grid;place-items:center;font-family:var(--mono);font-size:.55rem;color:rgba(240,233,255,.38);transition:transform .2s, box-shadow .2s}
+.heat-cell:hover{transform:scale(1.18);z-index:1;box-shadow:0 0 16px rgba(179,108,255,.5)}
+.heat-cell.future{background:transparent;border-color:transparent}
+.heat-cell.today{outline:1.5px solid var(--accent);outline-offset:1px}
+.h1{background:rgba(179,108,255,.28);border-color:rgba(179,108,255,.25);color:#e9d8ff}
+.h2{background:rgba(179,108,255,.45);border-color:rgba(179,108,255,.4);color:#f6edff}
+.h3{background:rgba(179,108,255,.65);border-color:rgba(179,108,255,.6);color:#fff}
+.h4{background:#b36cff;border-color:#b36cff;color:#241038;font-weight:700;box-shadow:0 0 14px rgba(179,108,255,.45)}
+.heat-legend{display:flex;align-items:center;gap:7px;margin-top:18px;font-family:var(--mono);font-size:.6rem;color:var(--muted)}
+.heat-legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+
+.lang-bar{display:flex;height:16px;border-radius:99px;overflow:hidden;margin-top:22px;border:1px solid var(--line)}
+.lang-bar span{height:100%;transition:filter .2s}
+.lang-bar span:hover{filter:brightness(1.35)}
+.lang-list{list-style:none;margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:9px 22px}
+@media(max-width:480px){.lang-list{grid-template-columns:1fr}}
+.lang-list li{display:flex;align-items:center;gap:9px;font-size:.82rem;color:var(--muted)}
+.lang-dot{width:10px;height:10px;border-radius:3px;flex:none}
+.lang-list b{color:var(--text);margin-left:auto;font-family:var(--mono);font-size:.72rem;font-weight:500}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:16px}
+@media(max-width:960px){.about-grid{grid-template-columns:1fr}}
+.quote-block{display:flex;flex-direction:column;justify-content:center;gap:22px}
+.big-quote{font-family:var(--disp);font-size:clamp(3rem,6vw,4.6rem);line-height:.6;color:var(--accent);opacity:.85}
+.quote-text{font-family:var(--disp);font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.45;letter-spacing:-.01em;color:var(--text)}
+.quote-text em{font-style:normal;color:var(--accent-soft)}
+.quote-src{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+.fact-list{display:flex;flex-direction:column;gap:12px}
+.fact{display:flex;align-items:center;gap:16px;border:1px solid var(--line);background:var(--panel);padding:17px 18px;border-radius:var(--r-md);transition:border-color .25s, transform .25s}
+.fact:hover{border-color:var(--line-strong);transform:translateX(7px)}
+.fact-icon{flex:none;width:46px;height:46px;border-radius:13px;background:var(--panel-2);border:1px solid var(--line);display:grid;place-items:center}
+.fact-icon svg{width:21px;height:21px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.fact b{font-size:.92rem;font-weight:600;display:block}
+.fact small{color:var(--muted);font-size:.76rem;display:block;margin-top:3px;line-height:1.45}
+
+/* ---------- stack ---------- */
+.stack-groups{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:860px){.stack-groups{grid-template-columns:1fr}}
+.stack-title{font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.stack-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.tech-chips{display:flex;flex-wrap:wrap;gap:11px}
+.tech{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:11px 17px;font-size:.86rem;font-weight:500;transition:transform .22s,border-color .22s,box-shadow .22s}
+.tech:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 28px rgba(179,108,255,.22)}
+.tdot{width:11px;height:11px;border-radius:50%;box-shadow:0 0 10px currentColor}
+.wild{margin-top:16px;border:1px dashed var(--line);border-radius:var(--r-md);padding:15px 20px;font-family:var(--mono);font-size:.72rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.wild b{color:var(--accent-soft);letter-spacing:.14em;text-transform:uppercase;font-size:.6rem}
+
+/* ---------- projects ---------- */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:1000px){.projects-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.projects-grid{grid-template-columns:1fr}}
+.project{display:flex;flex-direction:column;gap:13px;border:1px solid var(--line);background:linear-gradient(170deg,var(--panel-2),transparent 70%),var(--panel);border-radius:var(--r-md);padding:21px;text-decoration:none;color:var(--text);transition:transform .28s,border-color .28s,box-shadow .28s;position:relative;overflow:hidden}
+.project::before{content:"";position:absolute;top:0;left:-80%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.13),transparent);transform:skewX(-18deg);transition:left .7s ease;pointer-events:none}
+.project:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 22px 55px rgba(0,0,0,.5),0 0 0 1px rgba(179,108,255,.3),0 0 60px rgba(179,108,255,.18)}
+.project:hover::before{left:130%}
+.project-top{display:flex;align-items:center;gap:12px}
+.project-icon{width:42px;height:42px;flex:none;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-strong);display:grid;place-items:center}
+.project-icon svg{width:20px;height:20px;stroke:var(--accent-soft);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.project-name{font-family:var(--disp);font-weight:600;font-size:1rem;letter-spacing:-.01em;line-height:1.3}
+.project-tag{font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(179,108,255,.4);border-radius:99px;padding:2px 8px;display:inline-block;margin-top:5px}
+.project-desc{font-size:.82rem;color:var(--muted);line-height:1.6;flex:1}
+.project-foot{display:flex;align-items:center;gap:16px;font-family:var(--mono);font-size:.66rem;color:var(--muted);border-top:1px solid var(--line);padding-top:13px}
+.pl{display:flex;align-items:center;gap:7px}
+.pdot{width:9px;height:9px;border-radius:50%}
+.pstar{display:flex;align-items:center;gap:6px}
+.pstar svg{width:12px;height:12px;fill:#e8c15a;stroke:none}
+.pfork{margin-left:auto;color:var(--faint)}
+.project-arrow{position:absolute;top:19px;right:18px;opacity:.35;transition:opacity .25s, transform .25s}
+.project-arrow svg{width:17px;height:17px;stroke:var(--text);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.project:hover .project-arrow{opacity:1;transform:translate(2px,-2px)}
+
+/* ---------- contact ---------- */
+.contact{padding:90px 0 110px;text-align:center}
+.contact h2{font-family:var(--disp);font-weight:700;font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.03em;line-height:1.08}
+.contact p{color:var(--muted);margin:20px auto 0;max-width:460px;line-height:1.7}
+.social-row{display:flex;justify-content:center;gap:14px;margin-top:36px;flex-wrap:wrap}
+.social-btn{display:flex;align-items:center;gap:11px;border:1px solid var(--line-strong);background:var(--panel-2);color:var(--text);text-decoration:none;padding:14px 24px;border-radius:16px;font-family:var(--disp);font-weight:600;font-size:.9rem;transition:transform .25s,border-color .25s,box-shadow .25s}
+.social-btn svg{width:20px;height:20px}
+.social-btn:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 12px 36px rgba(179,108,255,.3)}
+.telegram svg{fill:#8ed0ff}
+.tiktok svg{fill:#ffb3d1}
+.github svg{fill:#f0e9ff}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:28px 0;background:rgba(11,7,19,.6)}
+.foot-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.foot-inner p{font-family:var(--mono);font-size:.66rem;color:var(--faint);line-height:1.7}
+.foot-inner a{color:var(--accent-soft);text-decoration:none}
+.foot-inner a:hover{text-decoration:underline}
+@media(max-width:640px){.foot-inner{flex-direction:column;text-align:center}}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="backdrop"><div class="glow-orb orb-1"></div><div class="glow-orb orb-2"></div></div>
+<div class="noise"></div>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top" aria-label="RubCut — home">
+      <span class="logo-badge"><svg viewBox="0 0 24 24"><path d="M4 19 9 5h3.6l-4 8h4L8.5 22l1.6-6H4z"/><path d="M14.5 5h1.6l4.5 14h-3.4l-4.6-14z" opacity=".65"/></svg></span>
+      <span><b>RubCut</b><small>github.com/RubCut</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#projects">Projects</a>
+      <a href="#stats">Stats</a>
+    </div>
+    <a class="btn btn-primary" href="https://github.com/RubCut">GitHub
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+    </a>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Android apps · PC software</div>
+        <h1 class="display">Hello!<br>I&rsquo;m <span class="grad">RubCut</span>.</h1>
+        <p class="hero-sub">And I built some <code>shit</code> on GitHub — so it <em>does</em> have many bugs, and I know about every single one of them. Usually.</p>
+        <div class="typing-line" aria-hidden="true"><span class="prompt">~/rubcut $</span><span id="typed"></span><span class="caret"></span></div>
+        <div class="chips">
+          <span class="chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Earth</span>
+          <span class="chip"><svg viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>C++ · Python · JavaScript</span>
+          <span class="chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>English · Russian</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#projects">See the projects
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="https://t.me/RubCut">Talk to me</a>
+        </div>
+        <p class="hero-note">// yes, this page exists because github.com won&rsquo;t let a README redirect you</p>
+      </div>
+      <div class="avatar-stage reveal in">
+        <div class="avatar-frame">
+          <div class="orbit orbit-1"></div>
+          <div class="orbit orbit-2"></div>
+          <div class="avatar-ring"></div>
+          <div class="avatar-inner"></div>
+          <img src="https://avatars.githubusercontent.com/u/206107899?v=4" alt="RubCut's avatar" width="300" height="349" fetchpriority="high" onerror="this.onerror=null;this.src='./assets/avatar-fallback.svg'">
+          <div class="status-pill"><span class="status-dot"></span>shipping bugs since 2025</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>Kotlin</span><span>Java</span><span>C++20</span><span>Qt 6</span><span>Python</span><span>TypeScript</span><span>React</span><span>JavaScript</span><span>Lua</span><span>C</span><span>Material Design</span><span>GitHub Actions</span>
+    </div>
+  </div>
+
+  <!-- ============ STATS ============ -->
+  <section class="section" id="stats">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="kicker"><i></i>By the numbers</div>
+          <h2 class="title">GitHub activity</h2>
+        </div>
+        <p>Vacuumed straight from Expressive Profile&rsquo;s hourly snapshot — same data that paints the README.</p>
+      </div>
+
+      <div class="stat-cards reveal">
+        <div class="stat-card"><div class="stat-num" data-count="331">0</div><div class="stat-label">Contributions this year</div></div>
+        <div class="stat-card"><div class="stat-num" data-count="5">0</div><div class="stat-label">Stars earned</div></div>
+        <div class="stat-card"><div class="stat-num" data-count="13">0</div><div class="stat-label">Repositories</div></div>
+        <div class="stat-card"><div class="stat-num" data-count="6">0</div><div class="stat-label">Longest streak · days</div></div>
+      </div>
+
+      <div class="split">
+        <div class="panel reveal">
+          <h3>Last 21 days <span>45 commits</span></h3>
+          <div class="heat-grid">
+            <div class="heat-weekdays"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+            <div class="heat-cells" id="heatCells"></div>
+          </div>
+          <div class="heat-legend">Less
+            <i style="background:rgba(255,255,255,.05)"></i>
+            <i style="background:rgba(179,108,255,.28)"></i>
+            <i style="background:rgba(179,108,255,.45)"></i>
+            <i style="background:rgba(179,108,255,.65)"></i>
+            <i style="background:#b36cff"></i>
+          More</div>
+        </div>
+
+        <div class="panel reveal" style="transition-delay:.12s">
+          <h3>Languages across my repositories <span>by bytes</span></h3>
+          <div class="lang-bar" id="langBar" role="img" aria-label="Language breakdown: Java 44%, Kotlin 18%, C++ 17%, Python 15%"></div>
+          <ul class="lang-list" id="langList"></ul>
+        </div>
+      </div>
+      <p class="data-note">// source: .profile/data.json · Expressive Profile snapshot · current streak: 0 days, longest: 6 days</p>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="kicker"><i></i>Who is this guy</div>
+          <h2 class="title">About me</h2>
+        </div>
+      </div>
+      <div class="about-grid">
+        <div class="panel quote-block reveal">
+          <div class="big-quote">&ldquo;</div>
+          <p class="quote-text">I built some <em>shit</em> on GitHub — so it does have many bugs, <em>and I know about it.</em></p>
+          <div class="quote-src">— RubCut, about himself, honestly</div>
+        </div>
+        <div class="fact-list">
+          <div class="fact reveal" style="transition-delay:.05s">
+            <div class="fact-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div><b>Developer and designer</b><small>Mostly frontend — but Android and PC desktops keep calling me back.</small></div>
+          </div>
+          <div class="fact reveal" style="transition-delay:.12s">
+            <div class="fact-icon"><svg viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg></div>
+            <div><b>Material Design &amp; Qt on PC</b><small>I care about how software feels — easing curves, spacing, all of it.</small></div>
+          </div>
+          <div class="fact reveal" style="transition-delay:.19s">
+            <div class="fact-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+            <div><b>Android-first, desktop-when-asked</b><small>Smartspacer plugins, ADB tooling, a Qt raster editor — all shipped, all buggy.</small></div>
+          </div>
+          <div class="fact reveal" style="transition-delay:.26s">
+            <div class="fact-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+            <div><b>Love music</b><small>Headphones on, IDE open, world outside the window politely ignored.</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STACK ============ -->
+  <section class="section" id="stack" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="kicker"><i></i>What I wield daily</div>
+          <h2 class="title">Tech stack</h2>
+        </div>
+        <p>The honest toolbox — measured in bytes of code pushed, not in how good the landing page looks. (It looks good.)</p>
+      </div>
+      <div class="stack-groups">
+        <div class="panel reveal">
+          <div class="stack-title">Main</div>
+          <div class="tech-chips">
+            <span class="tech"><span class="tdot" style="color:#3178c6;background:#3178c6"></span>TypeScript</span>
+            <span class="tech"><span class="tdot" style="color:#61dafb;background:#61dafb"></span>React</span>
+            <span class="tech"><span class="tdot" style="color:#ffd43b;background:#ffd43b"></span>Python</span>
+            <span class="tech"><span class="tdot" style="color:#a97bff;background:#a97bff"></span>Kotlin</span>
+            <span class="tech"><span class="tdot" style="color:#f89820;background:#f89820"></span>Java</span>
+            <span class="tech"><span class="tdot" style="color:#659ad2;background:#659ad2"></span>C++ / Qt 6</span>
+          </div>
+        </div>
+        <div class="panel reveal" style="transition-delay:.12s">
+          <div class="stack-title">Tools</div>
+          <div class="tech-chips">
+            <span class="tech"><span class="tdot" style="color:#f05033;background:#f05033"></span>Git</span>
+            <span class="tech"><span class="tdot" style="color:#f24e1e;background:#f24e1e"></span>Figma</span>
+            <span class="tech"><span class="tdot" style="color:#8aff8a;background:#8aff8a"></span>GitHub Actions</span>
+            <span class="tech"><span class="tdot" style="color:#b07219;background:#b07219"></span>Material Design</span>
+            <span class="tech"><span class="tdot" style="color:#2dd4bf;background:#2dd4bf"></span>Android Studio</span>
+          </div>
+        </div>
+      </div>
+      <div class="wild reveal"><b>Also in the wild</b><span>Java</span><span>C++20</span><span>C</span><span>Lua</span><span>JavaScript</span><span>HTML</span><span>Qt 6</span><span>Smartspacer SDK</span></div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section class="section" id="projects" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="kicker"><i></i>Stuff I actually shipped</div>
+          <h2 class="title">Featured projects</h2>
+        </div>
+        <p>Public repositories only — the private ones are where the real chaos lives, unfortunately.</p>
+      </div>
+      <div class="projects-grid" id="projectsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="kicker" style="justify-content:center"><i></i>Say hi</div>
+        <h2>Got an idea?<br><span class="grad">Let&rsquo;s ship it together.</span></h2>
+        <p>Bugs included at no extra cost. Best reach me on Telegram — I answer fastest there, code permitting.</p>
+      </div>
+      <div class="social-row reveal" style="transition-delay:.15s">
+        <a class="social-btn telegram" href="https://t.me/RubCut">
+          <svg viewBox="0 0 24 24"><path d="M22 2 11 13" stroke="#8ed0ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2l-7 20-4-9-9-4 20-7z" stroke="#8ed0ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Telegram
+        </a>
+        <a class="social-btn tiktok" href="https://www.tiktok.com/@burmaldakotost">
+          <svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" stroke="#ffb3d1" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          TikTok
+        </a>
+        <a class="social-btn github" href="https://github.com/RubCut">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="#f0e9ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <p>© 2026 <a href="https://github.com/RubCut">RubCut</a>. No redirects were used in the making of this site — GitHub simply doesn&rsquo;t allow them — so you got a hand-crafted button instead.</p>
+    <p><a href="https://rubcut.github.io/RubCut/">rubcut.github.io/RubCut</a> · powered by GitHub Pages</p>
+  </div>
+</footer>
+
+<script>
+/* ===== typing effect ===== */
+(function(){
+  var phrases = ['android apps.','pc software in C++ & Qt.','material-design enjoyers’ tools.','plugins for Smartspacer.','bugs — knowingly shipped.'];
+  var el = document.getElementById('typed');
+  if (!el) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = phrases[0]; return; }
+  var pi = 0, ci = 0, deleting = false;
+  function tick(){
+    var full = phrases[pi];
+    if (!deleting) {
+      ci++;
+      el.textContent = full.slice(0, ci);
+      if (ci === full.length) { deleting = true; return setTimeout(tick, 1900); }
+      setTimeout(tick, 42 + Math.random()*55);
+    } else {
+      ci -= 2; if (ci < 0) ci = 0;
+      el.textContent = full.slice(0, ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; return setTimeout(tick, 320); }
+      setTimeout(tick, 18);
+    }
+  }
+  tick();
+})();
+
+/* ===== nav scroll ===== */
+(function(){
+  var nav = document.getElementById('nav');
+  function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 40); }
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
+/* ===== reveal on scroll ===== */
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach(function(e){ e.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function(e){ io.observe(e); });
+})();
+
+/* ===== count-up stats ===== */
+(function(){
+  var nums = document.querySelectorAll('.stat-num[data-count]');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function animate(el){
+    var target = +el.getAttribute('data-count');
+    if (reduce) { el.textContent = target; return; }
+    var start = null;
+    function frame(ts){
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / 1300, 1);
+      var ease = 1 - Math.pow(2, -10 * p);
+      el.textContent = Math.round(target * (p === 1 ? 1 : ease));
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) { animate(entry.target); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.6 });
+  nums.forEach(function(n){ io.observe(n); });
+})();
+
+/* ===== 21-day contribution heatmap (Expressive Profile snapshot) ===== */
+(function(){
+  var weeks = [
+    [7,0,4,0,2,10,13],
+    [2,4,3,0,0,0,0],
+    [0,0,0] // today (day 17) + 4 untracked future cells rendered as blanks
+  ];
+  var cells = document.getElementById('heatCells');
+  if (!cells) return;
+  var html = '';
+  weeks.forEach(function(week, wi){
+    for (var d = 0; d < 7; d++) {
+      if (wi === 2 && d >= 3) { html += '<div class="heat-cell future">·</div>'; continue; }
+      var v = week[d] || 0;
+      var level = v === 0 ? '' : v <= 3 ? 'h1' : v <= 6 ? 'h2' : v <= 9 ? 'h3' : 'h4';
+      var isToday = (wi === 2 && d === 0);
+      html += '<div class="heat-cell ' + level + (isToday ? ' today' : '') + '" title="' + v + ' contribution' + (v === 1 ? '' : 's') + (isToday ? ' · today' : '') + '">' + v + '</div>';
+    }
+  });
+  cells.innerHTML = html;
+})();
+
+/* ===== languages bar (bytes across repos) ===== */
+(function(){
+  var langs = [
+    ['Java', 3440011, '#b07219'],
+    ['Kotlin', 1431603, '#a97bff'],
+    ['C++', 1323212, '#659ad2'],
+    ['Python', 1202614, '#ffd43b'],
+    ['C', 204752, '#9e9e9e'],
+    ['HTML', 162663, '#e34c26'],
+    ['JavaScript', 39560, '#f1e05a']
+  ];
+  var total = langs.reduce(function(s, l){ return s + l[1]; }, 0);
+  var bar = document.getElementById('langBar');
+  var list = document.getElementById('langList');
+  bar.innerHTML = langs.map(function(l){
+    var pct = (l[1] / total * 100);
+    return '<span style="width:' + pct.toFixed(2) + '%;background:' + l[2] + '" title="' + l[0] + ' — ' + pct.toFixed(1) + '%"></span>';
+  }).join('');
+  list.innerHTML = langs.map(function(l){
+    return '<li><span class="lang-dot" style="background:' + l[2] + '"></span>' + l[0] + '<b>' + (l[1] / total * 100).toFixed(1) + '%</b></li>';
+  }).join('');
+})();
+
+/* ===== featured public projects (verified 2026-11) ===== */
+(function(){
+  var projects = [
+    { name: 'ZeroAPI', url: 'https://github.com/RubCut/ZeroAPI', stars: 6, language: 'JavaScript', color: '#f1e05a', fork: true,
+      desc: 'Free: turn ChatGPT, DeepSeek, Gemini, Kimi, GLM, Qwen, Arena or Meta AI into an OpenAI-compatible API. Browser extension + local server.', tag: 'Most stars',
+      icon: '<path d="M13 2 3 14h7l-1 8 11-13h-7l0-7z"/>' },
+    { name: 'AI-news-Smartspacer-plugin', url: 'https://github.com/RubCut/AI-news-Smartspacer-plugin', stars: 1, language: 'Kotlin', color: '#a97bff', fork: false,
+      desc: 'Adds an AI news target that fetches news about any theme you want through LLM APIs — Gemini, OpenAI and more.', tag: 'Smartspacer',
+      icon: '<path d="M4 22h16"/><path d="M6 18 4 8l8-5 8 5-2 10"/><path d="M9.5 12h5"/><path d="M12 9.5v5"/>' },
+    { name: '2GIS-Smartspacer-Plugin', url: 'https://github.com/RubCut/2GIS-Smartspacer-Plugin', stars: 0, language: 'Kotlin', color: '#a97bff', fork: false,
+      desc: '2GIS map Smartspacer plugin — see the time in minutes to reach any address you choose. Needs a 2GIS API key.', tag: 'Smartspacer',
+      icon: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>' },
+    { name: 'EzADB', url: 'https://github.com/RubCut/EzADB', stars: 0, language: 'Android', color: '#3ddc84', fork: false,
+      desc: 'A small Android app to manage android devices through ADB. Exactly what the name promises, nothing more.', tag: 'Android',
+      icon: '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>' },
+    { name: 'quarsar-openio', url: 'https://github.com/RubCut/quarsar-openio', stars: 0, language: 'C', color: '#9e9e9e', fork: false,
+      desc: 'Замена com.yandex.io.sdk с расширенными возможностями кастомизации и оптимизации.', tag: 'Yandex.io',
+      icon: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>' },
+    { name: 'gmod-ms-screen-pack-example', url: 'https://github.com/RubCut/gmod-ms-screen-pack-example', stars: 0, language: 'Lua', color: '#7a7aff', fork: false,
+      desc: 'Metrostroi / Garry\u2019s Mod wagon-display ad packs + step-by-step guide to creating your own.', tag: 'Metrostroi',
+      icon: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/>' }
+  ];
+  var grid = document.getElementById('projectsGrid');
+  grid.innerHTML = projects.map(function(p){
+    return '<a class="project" href="' + p.url + '" target="_blank" rel="noopener">' +
+      '<span class="project-arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>' +
+      '<div class="project-top"><div class="project-icon"><svg viewBox="0 0 24 24">' + p.icon + '</svg></div>' +
+        '<div><div class="project-name">' + p.name + '</div><span class="project-tag">' + p.tag + '</span></div></div>' +
+      '<p class="project-desc">' + p.desc + '</p>' +
+      '<div class="project-foot">' +
+        '<span class="pl"><span class="pdot" style="background:' + p.color + '"></span>' + p.language + '</span>' +
+        '<span class="pstar"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>' + p.stars + '</span>' +
+        (p.fork ? '<span class="pfork">fork</span>' : '') +
+      '</div></a>';
+  }).join('');
+})();
+
+/* ===== marquee: duplicate for seamless loop ===== */
+(function(){
+  var track = document.getElementById('marqueeTrack');
+  track.innerHTML += track.innerHTML;
+})();
+</script>
+</body>
+</html>
